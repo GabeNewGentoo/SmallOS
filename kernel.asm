@@ -42,6 +42,12 @@ shell:
     cmp ax, 0
     je do_reboot
 
+    mov si, command
+    mov di, shutdown_cmd
+    call startswith
+    cmp ax, 0
+    je do_shutdown
+
     mov si, unknown
     call print
     jmp shell
@@ -80,6 +86,12 @@ do_reboot:
     .hang:
         hlt
         jmp .hang
+
+do_shutdown:
+    int 0x15
+    .hang2:
+    hlt
+    jmp .hang2
 print:
     mov ah, 0x0e
 .next:
@@ -162,6 +174,7 @@ startswith:
 welcome db 'Welcome to SmallOS shell!', 13, 10, 0
 prompt db 'SmallOS> ', 0
 newline db 13, 10, 0
+shutdown_cmd db 'shutdown', 0
 reboot_cmd db "reboot", 0
 print_cmd db 'print ', 0
 help_cmd db 'help', 0
