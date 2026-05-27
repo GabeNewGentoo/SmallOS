@@ -11,3 +11,5 @@ Move it somewhere and run:
 qemu-system-x86_64 -drive file=os.img,format=raw,if=floppy
 
 Note: The compile script requires NASM and Qemu, and also uses linux commands, so please do it in WSL if on windows.
+
+It runs on Real mode on x86_64 BIOS machines, It has been recorded running on 515 bytes of RAM, but i recommend more like 1KB.
