@@ -36,6 +36,12 @@ shell:
     cmp ax, 0
     je do_print
 
+    mov si, command
+    mov di, reboot_cmd
+    call startswith
+    cmp ax, 0
+    je do_reboot
+
     mov si, unknown
     call print
     jmp shell
@@ -68,6 +74,12 @@ do_print:
     call print
 
     jmp shell
+
+do_reboot:
+    int 0x19
+    .hang:
+        hlt
+        jmp .hang
 print:
     mov ah, 0x0e
 .next:
@@ -150,11 +162,12 @@ startswith:
 welcome db 'Welcome to SmallOS shell!', 13, 10, 0
 prompt db 'SmallOS> ', 0
 newline db 13, 10, 0
+reboot_cmd db "reboot", 0
 print_cmd db 'print ', 0
 help_cmd db 'help', 0
 clear_cmd db 'clear', 0
 about_cmd db 'about', 0
-help_text db 'Commands: help, clear, about, print', 13, 10, 0
+help_text db 'Commands: help, clear, about, print <text>, reboot', 13, 10, 0
 unknown db 'Unknown command. Try help.', 13, 10, 0
 about_text db "SmallOS v1, A simple half vibe coded OS thats designed to be simple", 13, 10, 0
 command times 256 db 0
