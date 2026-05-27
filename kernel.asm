@@ -183,7 +183,7 @@ print_cmd db 'print ', 0
 help_cmd db 'help', 0
 clear_cmd db 'clear', 0
 about_cmd db 'about', 0
-help_text db 'Commands: help, clear, about, print <text>, reboot', 13, 10, 0
+help_text db 'Commands: help, clear, about, print <text>, reboot, shutdown', 13, 10, 0
 unknown db 'Unknown command. Try help.', 13, 10, 0
 about_text db "SmallOS v1, A simple half vibe coded OS thats designed to be simple", 13, 10, 0
 command times 256 db 0
