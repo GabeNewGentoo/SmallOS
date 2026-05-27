@@ -88,6 +88,9 @@ do_reboot:
         jmp .hang
 
 do_shutdown:
+    mov ax, 0x5307
+    mov bx, 0x0001
+    mov cx, 0x0003
     int 0x15
     .hang2:
     hlt
